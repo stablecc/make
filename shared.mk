@@ -9,7 +9,7 @@ cleanall:
 
 CXXFLAGS += -std=c++14
 LDFLAGS += -lstdc++ -pthread
-CPPFLAGS += -I $(BASE)/scc/include
+#CPPFLAGS += -I $(BASE)/scc/include
 
 # all intermediate output goes to objdir
 ifeq ($(BLDTYPE),debug)
