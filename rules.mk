@@ -29,9 +29,10 @@ $(OBJDIR)/%.o : %.cpp $(OBJDIR)/%.d
 	$(COMPILE.cc) $(OUTPUT_OPTION) $<
 	$(POSTCOMPILE)
 
+# shared libs do not need library includes
+#$(CC) -shared -Wl,-soname,$(notdir $@) $(LDFLAGS) -o $@ $(OBJS)
+
 $(BINDIR)/%.so: $(OBJS)
-	# shared libs do not need library includes
-	#$(CC) -shared -Wl,-soname,$(notdir $@) $(LDFLAGS) -o $@ $(OBJS)
 	$(CC) -shared -Wl,-soname,$(notdir $@) -o $@ $(OBJS)
 	@echo Built shared library $@
 
