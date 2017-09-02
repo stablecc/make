@@ -15,9 +15,13 @@ Should be placed under the BASE build directory.
 
 Create a **make.mk** file in the shared lib directory, example:
 ```
-BLDLIBS += $(BASE)/import/googletest
+BLDLIBS += $(BASE)/import/thissharedlib
 
-CPPFLAGS += -isystem $(BASE)/import/googletest/include -I $(BASE)/import/googletest
+SLBUILDS += $(BASE)/othershared lib
+
+CPPFLAGS += -isystem $(BASE)/import/thissharedlib/include -I $(BASE)/import/thissharedlib
+
+include $(BASE)/othersharedlib
 
 ifeq ($(BLDTYPE),debug)
 LDFLAGS += -lgtestd
@@ -32,10 +36,11 @@ BASE = ../..
 
 NAME = gtest
 
-CPPFLAGS += -isystem include -I . # optional
+CPPFLAGS += -isystem include -I . # whatever you need
 
 SRCS = src/gtest-all.cc
 
+include $(BASE)/othersharedlib
 include $(BASE)/make/sl.mk # the share lib build file
 ```
 
@@ -60,8 +65,9 @@ Build the app using one of the following commands:
 ```
 $ make debug
 $ make release
-$ make clean # cleans app lib and dependencies
-$ make cleanlibs # cleans all shared libs and directories
+$ make clean # cleans app binaries and object files
+$ make cleanlibs # cleans all shared libs
+$ make cleanall # get rid of all binary and object files
 ```
 
 After build, object files are in *BASE/obj* directory, example:
