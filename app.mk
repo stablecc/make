@@ -24,9 +24,9 @@ clean:
 	rm -rf $(OBJDIR)_d
 
 .PHONY: cleanlibs
-cleanlibs:
+cleanlibs: clean
 	@for lib in $(BLDLIBS); do \
-	$(MAKE) -C $$lib --no-print-directory clean; \
+	$(MAKE) -C $$lib --no-print-directory cleanlibs; \
 	done
 
 include $(BASE)/make/rules.mk
